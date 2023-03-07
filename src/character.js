@@ -5,6 +5,7 @@ export class Character {
     this.speed = speed;
     this.health = 100;
     this.charisma = 10;
+    this.intelligence = 10;
   }
 }
 
