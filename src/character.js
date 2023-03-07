@@ -4,6 +4,7 @@ export class Character {
     this.strength = strength;
     this.speed = speed;
     this.health = 100;
+    this.charisma = 10;
   }
 }
 
