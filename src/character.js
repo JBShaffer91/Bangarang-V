@@ -7,6 +7,8 @@ export class Character {
     this.charisma = 10;
     this.intelligence = 10;
     this.energy = 100;
+    this.level = 1;
+    this.luck = 10;
   }
 }
 

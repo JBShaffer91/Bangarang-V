@@ -36,3 +36,13 @@ test('should create a new character with the given energy', () => {
   const character = new Character('Alice', 10, 5, 100, 10, 10, 100);
   expect(character.energy).toEqual(100);
 });
+
+test('should create a new character with the given level', () => {
+  const character = new Character('Alice', 10, 5, 100, 10, 10, 100, 1);
+  expect(character.level).toEqual(1);
+});
+
+test('should create a new character with the given luck', () => {
+  const character = new Character('Alice', 10, 5, 100, 10, 10, 100, 1, 10);
+  expect(character.luck).toEqual(10);
+});
