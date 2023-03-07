@@ -31,3 +31,8 @@ test('should create a new character with the given intelligence', () => {
   const character = new Character('Alice', 10, 5, 100, 10, 10);
   expect(character.intelligence).toEqual(10);
 });
+
+test('should create a new character with the given energy', () => {
+  const character = new Character('Alice', 10, 5, 100, 10, 10, 100);
+  expect(character.energy).toEqual(100);
+});
