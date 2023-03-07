@@ -3,6 +3,7 @@ export class Character {
     this.name = name;
     this.strength = strength;
     this.speed = speed;
+    this.health = 100;
   }
 }
 

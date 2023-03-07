@@ -12,7 +12,12 @@ describe('Character', () => {
   });
 });
 
-test('should create a new character with the given speed', () => {
+  test('should create a new character with the given speed', () => {
   const character = new Character('Alice', 10, 5);
   expect(character.speed).toEqual(5);
+});
+
+test('should create a new character with the given health', () => {
+  const character = new Character('Alice', 10, 5, 100);
+  expect(character.health).toEqual(100);
 });
