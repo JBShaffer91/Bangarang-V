@@ -11,3 +11,8 @@ describe('Character', () => {
     expect(character.strength).toEqual(10);
   });
 });
+
+test('should create a new character with the given speed', () => {
+  const character = new Character('Alice', 10, 5);
+  expect(character.speed).toEqual(5);
+});
