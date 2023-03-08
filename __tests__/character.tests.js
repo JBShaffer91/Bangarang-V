@@ -58,3 +58,4 @@ describe('Character', () => {
     expect(character.luck).toBe(10);
   });
 });
+

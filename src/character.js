@@ -13,6 +13,21 @@ export class Character {
     this.level = level;
     this.luck = luck;
   }
+
+  attack(target) {
+    let hitRoll = Math.floor(Math.random() * 20) + 1;
+    let hitChance = hitRoll + this.dexterity;
+    let dodgeRoll = Math.floor(Math.random() * 20) + 1;
+    let dodgeChance = dodgeRoll + target.dexterity;
+
+    if (hitChance >= dodgeChance) {
+      let damage = Math.floor(Math.random() * this.strength) + 1;
+      target.health -= damage;
+      return `${this.name} hits ${target.name} for ${damage} damage!`;
+    } else {
+      return `${this.name} misses ${target.name}!`;
+    }
+  }
 }
 
 module.exports = Character;

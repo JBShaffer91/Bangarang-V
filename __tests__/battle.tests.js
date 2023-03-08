@@ -33,4 +33,11 @@ describe('Battle', () => {
     expect(battle.activeCharacterIndex).toBe(0);
   });
   
+  test('should return true when all participants are defeated except for one', () => {
+    expect(battle.isOver()).toBe(false);
+    battle.participants.forEach(participant => {
+      battle.defeat(participant);
+    });
+    expect(battle.isOver()).toBe(true);
+  });  
 });
