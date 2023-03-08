@@ -1,4 +1,4 @@
-class Battle {
+export class Battle {
   constructor(participants) {
     this.participants = participants;
     this.turnOrder = [];
@@ -7,9 +7,14 @@ class Battle {
   }
 
   generateTurnOrder() {
-    const shuffledParticipants = this.participants.sort(() => Math.random() - 0.5);
-    this.turnOrder = [...shuffledParticipants];
+    this.turnOrder = [...this.participants];
   }
+  
+
+  nextTurn() {
+    this.activeCharacterIndex = (this.activeCharacterIndex + 1) % this.turnOrder.length;
+    return this.turnOrder[this.activeCharacterIndex];
+  }  
 }
 
 module.exports = Battle;
