@@ -9,7 +9,9 @@ export class Character {
     this.wisdom = wisdom;
     this.charisma = charisma;
     this.health = health;
+    this.maxHealth = health;
     this.energy = energy;
+    this.maxEnergy = energy;
     this.level = level;
     this.luck = luck;
   }
@@ -23,10 +25,23 @@ export class Character {
     if (hitChance >= dodgeChance) {
       let damage = Math.floor(Math.random() * this.strength) + 1;
       target.health -= damage;
+      if (target.health < 0) {
+        target.health = 0;
+      }
       return `${this.name} hits ${target.name} for ${damage} damage!`;
     } else {
       return `${this.name} misses ${target.name}!`;
     }
+  }
+
+  rest() {
+    this.health = Math.min(this.maxHealth, this.health + 10);
+    this.energy = Math.min(this.maxEnergy, this.energy + 10);
+    return `${this.name} rests and recovers health and energy.`;
+  }
+
+  isAlive() {
+    return this.health > 0;
   }
 }
 

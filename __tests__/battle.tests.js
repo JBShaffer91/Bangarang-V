@@ -1,4 +1,15 @@
-const Battle = require('./../src/battle');
+const Character = require('../src/character');
+const Battle = require('../src/battle');
+
+const characters = [
+  new Character('Gandalf'),
+  new Character('Aragorn'),
+  new Character('Legolas'),
+  new Character('Gimli'),
+];
+
+const battle = new Battle(characters);
+battle.start();
 
 describe('Battle', () => {
   let battle;
@@ -39,5 +50,20 @@ describe('Battle', () => {
       battle.defeat(participant);
     });
     expect(battle.isOver()).toBe(true);
+  });
+
+  test('should initialize with an array of participants', () => {
+    const participants = ['player1', 'player2', 'player3'];
+    expect(battle.characters).toEqual(participants);
+  });
+  
+  test('should initialize with an array of participants', () => {
+    const participants = [
+      new Character('player1', 10, 5),
+      new Character('player2', 12, 4),
+      new Character('player3', 8, 6),
+    ];
+    const battle = new Battle(participants);
+    expect(battle.participants).toEqual(participants);
   });  
 });

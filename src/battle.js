@@ -1,44 +1,69 @@
-const Character = require('./character');
+const Character = require('../src/character');
 
 class Battle {
-  constructor(participants) {
-    if (!Array.isArray(participants)) {
-      throw new Error('Invalid argument type');
-    }
-    this.participants = participants;
-    this.turnOrder = null;
-    this.activeCharacterIndex = null;
+  constructor(characters) {
+    this.characters = characters;
+    this.turnOrder = [];
+    this.activeCharacterIndex = 0;
+    this.initialize();
   }
 
   initialize() {
-    this.participants.forEach((participant) => {
-      if (!(participant instanceof Character)) {
-        throw new Error('Participants must be instances of the Character class');
-      }
-    });
     this.generateTurnOrder();
-    this.activeCharacterIndex = 0;
   }
+  
 
   generateTurnOrder() {
-    const shuffled = [...this.participants].sort(() => 0.5 - Math.random());
-    this.turnOrder = shuffled;
+    let currentIndex = this.characters.length, temporaryValue, randomIndex;
+    while (currentIndex > 0) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = this.characters[currentIndex];
+      this.characters[currentIndex] = this.characters[randomIndex];
+      this.characters[randomIndex] = temporaryValue;
+    }
+
+    this.turnOrder = this.characters;
   }
 
   nextTurn() {
+    // increment activeCharacterIndex by one
     this.activeCharacterIndex = (this.activeCharacterIndex + 1) % this.turnOrder.length;
+
+    // return next character in turnOrder
     return this.turnOrder[this.activeCharacterIndex];
   }
 
   isOver() {
-    return this.participants.filter((participant) => participant.hp > 0).length <= 1;
+    let aliveCharacters = 0;
+    this.characters.forEach((character) => {
+      if (character instanceof Character && character.isAlive()) {
+        aliveCharacters += 1;
+      }
+    });
+  
+    return aliveCharacters === 1;
+  }
+  
+
+  start() {
+    while (!this.isOver()) {
+      const activeCharacter = this.nextTurn();
+      const target = this.selectTarget(activeCharacter);
+      const damage = activeCharacter.attack(target);
+    }
+
+    const winner = this.characters.find((character) => character.isAlive());
   }
 
-  defeat(participant) {
-    if (!(participant instanceof Character)) {
-      throw new Error('Participant must be an instance of the Character class');
-    }
-    participant.hp = 0;
+  selectTarget(activeCharacter) {
+    const targets = this.characters.filter((character) => character !== activeCharacter && character.isAlive());
+    const randomIndex = Math.floor(Math.random() * targets.length);
+    return targets[randomIndex];
   }
 }
 
